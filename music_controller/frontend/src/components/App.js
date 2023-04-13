@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import HomePage from "./HomePage";
 
 
 export default class App extends Component {
@@ -8,9 +9,9 @@ export default class App extends Component {
   }
 
   render() {
-    return <h1>{this.props.name}</h1>;
+    return <HomePage />;
   }
 }
 
 const appDiv = document.getElementById("app");
-render(<App name=" Music Controller" />, appDiv);
+render(<App />, appDiv);
