@@ -16,6 +16,8 @@ class RoomView(generics.ListAPIView):
 
 
 class CreateRoomView(APIView):
+    serializer_class = CreateRoomSerializer
+
     def post(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
@@ -93,6 +95,8 @@ class UpdateRoomView(APIView):
 
 
 class JoinRoomView(APIView):
+    lookup_url_kwarg = 'code'
+
     def post(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
@@ -129,6 +133,5 @@ class LeaveRoomView(APIView):
             room_results = Room.objects.filter(host=host_id)
             if len(room_results) > 0:
                 room = room_results[0]
-                room.delete()
 
         return Response({'Message': 'Success'}, status=status.HTTP_200_OK)
