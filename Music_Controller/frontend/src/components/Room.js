@@ -11,11 +11,19 @@ export default class Room extends Component {
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
+    this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
+
   }
 
   getRoomDetails() {
-    fetch("/api/get-room" + "?code=" + this.roomCode)
-      .then((response) => response.json())
+    return fetch("/api/get-room" + "?code=" + this.roomCode)
+      .then((response) => {
+        if (!response.ok) {
+          this.props.leaveRoomCallback();
+          this.props.history.push("/");
+        }
+        return response.json();
+      })
       .then((data) => {
         this.setState({
           votesToSkip: data.votes_to_skip,
@@ -24,6 +32,19 @@ export default class Room extends Component {
         });
       });
   }
+  
+
+   leaveButtonPressed() {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch("/api/leave-room", requestOptions).then((_response) => {
+      this.props.leaveRoomCallback();
+      this.props.history.push("/");
+    });
+  }
+
 
   render() {
     return (
