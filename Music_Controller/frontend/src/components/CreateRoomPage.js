@@ -125,7 +125,7 @@ export default class CreateRoomPage extends Component {
     const title = this.props.update ? "Update Room" : "Create a Room";
 
     return (
-      <Grid container spacing={1}>
+       <Grid container spacing={1}>
         <Grid item xs={12} align="center">
           <Collapse
             in={this.state.errorMsg != "" || this.state.successMsg != ""}

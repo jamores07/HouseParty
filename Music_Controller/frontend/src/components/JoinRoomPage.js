@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default class RoomJoinPage extends Component {
   constructor(props) {
-    super(props);
+       super(props);
     this.state = {
       roomCode: "",
       error: "",
